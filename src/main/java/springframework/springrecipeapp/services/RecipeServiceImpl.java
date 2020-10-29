@@ -4,6 +4,7 @@ import jdk.nashorn.internal.runtime.options.Option;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import springframework.springrecipeapp.domain.Recipe;
+import springframework.springrecipeapp.exceptions.NotFoundException;
 import springframework.springrecipeapp.repositories.RecipeRepository;
 
 import java.util.HashSet;
@@ -34,7 +35,7 @@ public class RecipeServiceImpl implements RecipeService {
         Optional<Recipe> recipeOptional = recipeRepository.findById(id);
 
         if(!recipeOptional.isPresent())
-            throw new RuntimeException("Recipe not Found!");
+            throw new NotFoundException("Recipe not Found, For ID value: "+ id.toString());
 
         return recipeOptional.get();
     }
