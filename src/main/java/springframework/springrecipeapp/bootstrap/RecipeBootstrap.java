@@ -4,10 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
-import springframework.springrecipeapp.domain.Ingredient;
-import springframework.springrecipeapp.domain.Notes;
-import springframework.springrecipeapp.domain.Recipe;
-import springframework.springrecipeapp.domain.UnitOfMeasure;
+import springframework.springrecipeapp.domain.*;
 import springframework.springrecipeapp.repositories.CategoryRepository;
 import springframework.springrecipeapp.repositories.RecipeRepository;
 import springframework.springrecipeapp.repositories.UnitOfMeasureRepository;
@@ -42,7 +39,7 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
 
     private List<Recipe> getRecipes(){
         List<Recipe> recipes = new ArrayList<>();
-        Recipe recipe = new Recipe();
+        Recipe recipe = new Recipe("Test description text",40,210,3,"random source","random url","directions text here", Difficulty.EASY);
         recipe.setDescription("One random new recipe desc here :)");
         // Get Unit of Measure
         Optional<UnitOfMeasure> optionalUnitOfMeasure = unitOfMeasureRepository.findByDescription("Teaspoon");
@@ -53,7 +50,7 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
 
         // Add test ingredients
         for(int i=0; i<5; i++)
-            recipe.getIngredients().add(new Ingredient("ingredient name"+i, new BigDecimal(2), teaspoon,recipe));
+            recipe.getIngredients().add(new Ingredient("ingredient name "+i, new BigDecimal(2), teaspoon,recipe));
 
         // Add notes
         Notes notes = new Notes(recipe,"test notes here..");
